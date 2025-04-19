@@ -1,24 +1,39 @@
-[
-  {
-    "category": "Косметика",
-    "title": "Летний уход SPF–набор",
-    "description": "Солнцезащитный крем, алоэ–гель, мини–спрей",
-    "supplier": "Ankorstore",
-    "purchase_price": 8.5,
-    "sale_price": 29.0,
-    "risk_level": "Низкий",
-    "demand_type": "Сезонный",
-    "sku_code": "A-SPF-2024"
-  },
-  {
-    "category": "Сад",
-    "title": "Садовый набор в чехле",
-    "description": "Компактный набор инструментов для дачи",
-    "supplier": "Faire",
-    "purchase_price": 11.0,
-    "sale_price": 36.0,
-    "risk_level": "Средний",
-    "demand_type": "Стабильный",
-    "sku_code": "GARD-TOOL-2024"
+function importDrafts() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Черновики');
+  const settingsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Настройки');
+  const url = settingsSheet.getRange("B1").getValue();
+
+  const response = UrlFetchApp.fetch(url, {
+    muteHttpExceptions: true,
+    followRedirects: true
+  });
+
+  const content = response.getContentText();
+
+  try {
+    const data = JSON.parse(content);
+
+    sheet.clearContents();
+    sheet.appendRow(['Категория', 'Название товара', 'Описание', 'Поставщик', 'Закупочная цена (€)', 'Продажная цена (€)', 'Уровень риска', 'Тип спроса', 'Артикул']);
+
+    data.forEach(row => {
+      sheet.appendRow([
+        row.category,
+        row.title,
+        row.description,
+        row.supplier,
+        row.purchase_price,
+        row.sale_price,
+        row.risk_level,
+        row.demand_type,
+        row.sku_code
+      ]);
+    });
+
+    const now = new Date();
+    sheet.getRange("A1").setValue("Импорт от: " + now.toLocaleString("da-DK"));
+
+  } catch (err) {
+    SpreadsheetApp.getUi().alert("❌ Ошибка при разборе JSON:\n\n" + err);
   }
-]
+}
