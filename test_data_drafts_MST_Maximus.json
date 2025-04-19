@@ -1,0 +1,24 @@
+[
+  {
+    "category": "Косметика",
+    "title": "Летний уход SPF-набор",
+    "description": "Солнцезащитный крем, алоэ-гель, мини-спрей",
+    "supplier": "Ankorstore",
+    "purchase_price": 8.5,
+    "sale_price": 29.0,
+    "risk_level": "Низкий",
+    "demand_type": "Сезонный",
+    "sku_code": "A-SPF-2024"
+  },
+  {
+    "category": "Сад",
+    "title": "Садовый набор в чехле",
+    "description": "Компактный набор инструментов для дачи",
+    "supplier": "Faire",
+    "purchase_price": 11.0,
+    "sale_price": 36.0,
+    "risk_level": "Средний",
+    "demand_type": "Стабильный",
+    "sku_code": "GARD-TOOL-2024"
+  }
+]
